@@ -1,0 +1,8 @@
+node_modules
+.venv
+.next
+dist
+build
+.cache
+*.log
+dev.log

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PromptForge AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <header class="app-header">
+    <div class="logo-group">
+      <span class="logo-icon">⚡</span>
+      <div>
+        <h1>PromptForge AI</h1>
+        <p class="subtitle">Build, enhance, and copy production-ready AI prompts in seconds.</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="savePresetBtn" class="ghost icon-btn" title="Save preset">💾 Save</button>
+      <button id="loadPresetBtn" class="ghost icon-btn" title="Load preset">📂 Load</button>
+    </div>
+  </header>
+
+  <!-- Main grid -->
+  <div class="grid">
+    <div class="field">
+      <label for="type">Prompt Type</label>
+      <select id="type">
+        <option>Writing</option>
+        <option>Coding</option>
+        <option>Image Generation</option>
+        <option>Study</option>
+        <option>Marketing</option>
+        <option>Research</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="level">Complexity Level</label>
+      <select id="level">
+        <option>Beginner</option>
+        <option selected>Intermediate</option>
+        <option>Advanced</option>
+        <option>Expert</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="topic">
+        Topic / Goal
+        <button id="randomTopicBtn" class="inline-hint-btn" type="button">Suggest ✦</button>
+      </label>
+      <input type="text" id="topic" placeholder="e.g. Build a Python REST API with JWT auth" autocomplete="off" />
+    </div>
+
+    <div class="field">
+      <label for="tone">Tone</label>
+      <input type="text" id="tone" placeholder="e.g. Professional, Friendly" />
+    </div>
+
+    <div class="field">
+      <label for="audience">Audience</label>
+      <input type="text" id="audience" placeholder="e.g. Junior developers" />
+    </div>
+
+    <div class="field">
+      <label for="format">Output Format</label>
+      <select id="format">
+        <option>Markdown</option>
+        <option>Bullet List</option>
+        <option>JSON</option>
+        <option>Email</option>
+        <option>Table</option>
+        <option>Plain Text</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="length">Length</label>
+      <select id="length">
+        <option>Short</option>
+        <option selected>Medium</option>
+        <option>Long</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="context">Context (optional)</label>
+      <textarea id="context" rows="3" placeholder="Any background info the AI should consider…"></textarea>
+    </div>
+  </div>
+
+  <!-- Dynamic lists -->
+  <div class="lists-row">
+    <div class="dynamic-group">
+      <div class="dynamic-header">
+        <h3>Constraints</h3>
+        <div class="inline-input">
+          <input id="constraintInput" type="text" placeholder="e.g. max 300 words" />
+          <button id="addConstraintBtn" class="secondary">Add</button>
+        </div>
+      </div>
+      <ul id="constraintsList" class="pill-list"></ul>
+    </div>
+
+    <div class="dynamic-group">
+      <div class="dynamic-header">
+        <h3>Must Include</h3>
+        <div class="inline-input">
+          <input id="mustInput" type="text" placeholder="e.g. code examples" />
+          <button id="addMustBtn" class="secondary">Add</button>
+        </div>
+      </div>
+      <ul id="mustList" class="pill-list"></ul>
+    </div>
+
+    <div class="dynamic-group">
+      <div class="dynamic-header">
+        <h3>Avoid</h3>
+        <div class="inline-input">
+          <input id="avoidInput" type="text" placeholder="e.g. jargon" />
+          <button id="addAvoidBtn" class="secondary">Add</button>
+        </div>
+      </div>
+      <ul id="avoidList" class="pill-list"></ul>
+    </div>
+  </div>
+
+  <!-- Toggles -->
+  <div class="toggle-row">
+    <label><input type="checkbox" id="includeExamples" checked /> Examples</label>
+    <label><input type="checkbox" id="includeSteps" checked /> Step-by-step plan</label>
+    <label><input type="checkbox" id="includeChecklist" /> Quality checklist</label>
+    <label><input type="checkbox" id="includeQuestions" /> Clarifying questions first</label>
+    <label class="auto-label"><input type="checkbox" id="autoGenerate" /> Auto-build on change</label>
+  </div>
+
+  <!-- Action bar -->
+  <div class="actions">
+    <button id="generateBtn" class="btn-primary">Build Prompt</button>
+    <button id="enhanceBtn" class="btn-ai">✦ AI Enhance</button>
+    <button id="copyBtn" class="secondary">Copy</button>
+    <button id="clearBtn" class="ghost">Clear</button>
+  </div>
+
+  <!-- Output -->
+  <div class="output">
+    <div class="output-header">
+      <h3>Generated Prompt</h3>
+      <span id="stats" class="stats">0 chars · 0 words</span>
+    </div>
+    <div id="loadingBar" class="loading-bar hidden"></div>
+    <pre id="result" class="placeholder">Your generated prompt will appear here…</pre>
+  </div>
+
+  <!-- History -->
+  <div id="historySection" class="history-section hidden">
+    <div class="history-header">
+      <h3>Recent Prompts</h3>
+      <button id="clearHistoryBtn" class="ghost small">Clear all</button>
+    </div>
+    <ul id="historyList" class="history-list"></ul>
+  </div>
+
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

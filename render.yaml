@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: promptforge-ai
+    runtime: node
+    rootDir: ai-prompt-generator
+    buildCommand: npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false   # set this manually in the Render dashboard

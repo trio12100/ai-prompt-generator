@@ -1,9 +1,9 @@
 {
   "startupCommands": [
     "cd /home/user/app/ai-prompt-generator/backend && npm install; npm run dev",
-    "cd /home/user/app/ai-prompt-generator/frontend && npm install; npm run dev"
+    "cd /home/user/app/ai-prompt-generator/frontend && npm install; npm run dev -- --host 0.0.0.0"
   ],
-  "projectId": "16a9e3b1-0608-4647-b5a6-3cf489b05b15",
+  "projectId": "9e5f8a5c-8b95-450f-852c-7f95b036c1b6",
   "templateId": "any",
   "detectedFramework": "any"
 }

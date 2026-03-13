@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-prompt-generator
+    runtime: node
+    rootDir: .
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false

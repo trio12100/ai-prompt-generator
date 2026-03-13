@@ -1,8 +1,4 @@
 // ── Config ──────────────────────────────────────────────────────────────────
-// In dev Vite proxies /generate to localhost:3000.
-// In production the Express server serves both the static files AND /generate.
-const API_BASE = ""   // always relative — works both locally and on Render
-
 const MAX_HISTORY = 12
 const PRESET_KEY  = "promptforge-preset-v2"
 const HISTORY_KEY = "promptforge-history-v1"
@@ -88,7 +84,6 @@ const $ = id => document.getElementById(id)
 function setLoading(isLoading) {
   $("loadingBar").classList.toggle("hidden", !isLoading)
   $("generateBtn").disabled = isLoading
-  $("enhanceBtn").disabled  = isLoading
 }
 
 function showToast(msg, isError = false) {
@@ -205,35 +200,6 @@ function buildLocalPrompt(v) {
   lines.push("Final instruction: Optimise for usefulness over verbosity.")
 
   return lines.join("\n")
-}
-
-// ── AI Enhance via backend ────────────────────────────────────────────────────
-async function aiEnhance() {
-  const v = getFormValues()
-  if (!v.topic) { showToast("Enter a topic first.", true); return }
-
-  setLoading(true)
-  try {
-    const res = await fetch(`${API_BASE}/generate`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(v),
-    })
-
-    const data = await res.json()
-
-    if (!res.ok) {
-      showToast(data.error || "AI request failed.", true)
-      return
-    }
-
-    setOutput(data.prompt, true)
-    showToast("✦ AI-enhanced prompt ready!")
-  } catch {
-    showToast("Could not reach the server. Is it running?", true)
-  } finally {
-    setLoading(false)
-  }
 }
 
 // ── Output & history ─────────────────────────────────────────────────────────
@@ -424,7 +390,6 @@ function wireAutoInputs() {
 }
 
 $("generateBtn").addEventListener("click", generatePrompt)
-$("enhanceBtn").addEventListener("click", aiEnhance)
 $("copyBtn").addEventListener("click", () => copyText($("result").textContent, $("copyBtn")))
 $("clearBtn").addEventListener("click", clearForm)
 $("savePresetBtn").addEventListener("click", savePreset)
